@@ -1,4 +1,2 @@
 Task to do:
-- Calculate Difficulty of Itinerary / Uses difficulty of the actities of each day inside the days list of Itirenary
-  The max amount of same difficulties in the day should be the difficulty of the day, but if there is more difficulties on the same amount,
-  we should choose the higher difficulty.
+- 2 part of proyect on hold until JUnit test are done with at least 85% code and test coverage.
