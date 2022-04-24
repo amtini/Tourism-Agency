@@ -51,6 +51,10 @@ public class User {
         return criteria.canMakeItinerary(this, itinerary);
     }
 
+    public void changeCriteria(Criteria c){
+        criteria = c;
+    }
+
     //Validators
 
     public Boolean atLeastOneWishListDestinty(){

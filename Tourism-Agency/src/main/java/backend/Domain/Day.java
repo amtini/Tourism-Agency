@@ -2,16 +2,21 @@ package backend.Domain;
 
 import java.util.ArrayList;
 import java.util.List;
-/*import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.LongStream;*/
+
+import backend.Functions.DifficultyFunction;
 
 public class Day {
     Integer numberDay;
     List<Activity>activities = new ArrayList<Activity>();
 
     public void addActivity(Activity activity){
-        activities.add(activity);
+        if(nonOverlapping(activity)){
+            activities.add(activity);
+        }
+    }
+
+    public Boolean nonOverlapping(Activity activity){
+        return activities.stream().allMatch(t->t.nonOverlapping(activity));
     }
 
     public void removeActivity(Activity activity){
@@ -22,15 +27,22 @@ public class Day {
         return activities.stream().mapToDouble(t->t.getDuration()).average().getAsDouble();
     }
 
-    //TO DOOO
-    /*public Map<Object, Long> getDificulty(){
-        return activities.stream().collect(Collectors.toMap(t->t.dificulty, 1 ,Long::sum));
-    }*/
-
     public double getCost(){
         return activities.stream().mapToDouble(t->t.cost).sum();
+    }    
+
+    public Boolean atLeastOneActivity(){
+        return activities.size() >= 1;
     }
 
-    //Validators
-    
+    public String difficulty(){
+        Integer lowAmount = amountOfDifficulty("LOW");
+        Integer midAmount = amountOfDifficulty("MID");
+        Integer highAmount = amountOfDifficulty("HIGH");
+        return DifficultyFunction.calculateDifficulty(lowAmount,midAmount,highAmount);
+    }
+
+    public Integer amountOfDifficulty(String s){
+        return (int)activities.stream().filter(t->t.dificulty == s).count();
+    }
 }

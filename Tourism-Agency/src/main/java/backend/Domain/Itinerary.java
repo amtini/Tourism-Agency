@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.OptionalDouble;
 import java.util.Set;
-import java.util.stream.Stream;
+
+import backend.Functions.DifficultyFunction;
 
 public class Itinerary {
     Itinerary(User owner_,Destiny destiny_){
@@ -22,8 +22,6 @@ public class Itinerary {
     Set<Calification> califications = new HashSet<Calification>();
 
 
-    
-
     public double getCost(User user){
         return days.stream().mapToDouble(t->t.getCost()).sum() + destiny.cost(user);
     }
@@ -35,11 +33,6 @@ public class Itinerary {
     //Validators
     public Boolean minAmountActivities(){
         return activiesAmount() > 1;
-    }
-
-    //TO DOO
-    public Boolean nonOverlapping(){
-        return days.stream().anyMatch(t->t.overlappingActivities)
     }
 
     public Boolean validCalification(Integer v){
@@ -75,6 +68,8 @@ public class Itinerary {
         return days.size();
     }
 
+    //Activities of Day interactions
+
     public Integer activiesAmount(){
         return days.stream().mapToInt(t->t.activities.size()).sum();
     }
@@ -83,8 +78,22 @@ public class Itinerary {
         return days.stream().mapToDouble(t->t.getDurationOfActivies()).average().getAsDouble();
     }
 
-    //TO DOOO
-    public String getDificulty() {
-        return "123";
+    public Boolean oneActivityPerDay(){
+        return days.stream().allMatch(t->t.atLeastOneActivity());
+    }
+
+    public String dificulty() {
+            Integer lowAmount = amountOfDifficulty("LOW");
+            Integer midAmount = amountOfDifficulty("MID");
+            Integer highAmount = amountOfDifficulty("HIGH");
+            return DifficultyFunction.calculateDifficulty(lowAmount,midAmount,highAmount);
+    }
+
+    public Integer amountOfDifficulty(String s){
+        return (int)days.stream().filter(t->t.difficulty() == s).count();
+    }
+
+    public Integer amountOfActivitiesWithSpecificDifficulty(String s){
+        return (int)days.stream().mapToInt(t->t.amountOfDifficulty(s)).sum();
     }
 }

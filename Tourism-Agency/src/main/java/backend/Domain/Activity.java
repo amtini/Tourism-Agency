@@ -32,4 +32,12 @@ public class Activity {
     public double getDuration(){
         return (double)TimeUnit.MILLISECONDS.toMinutes(finishSchedule.getTime() - startSchedule.getTime());
     }
+
+    public Boolean nonOverlapping(Activity activity) {
+        int s1 = startSchedule.compareTo(activity.startSchedule);
+        int s2 = startSchedule.compareTo(activity.finishSchedule);
+        int f1 = finishSchedule.compareTo(activity.startSchedule);
+        int f2 = finishSchedule.compareTo(activity.finishSchedule);
+        return (s1 > 0 && s2 > 0) || (f1 < 0 && f2 < 0);
+    }
 }

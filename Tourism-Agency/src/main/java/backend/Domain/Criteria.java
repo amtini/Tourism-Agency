@@ -31,10 +31,28 @@ class Parochial extends Criteria{
     }
 }
 
-class Dreamers extends Criteria{
+class Dreamer extends Criteria{
 
     @Override
     boolean canMakeItinerary(User user, Itinerary itinerary) {
         return (user.wishListDestiny.stream().anyMatch(t -> t.name == itinerary.destiny.name) || itinerary.destiny.cost(user) > user.wishListDestiny.stream().mapToDouble(t -> t.cost(user)).max().orElseThrow(NoSuchElementException::new));
+    }
+}
+
+class Active extends Criteria{
+
+    @Override
+    boolean canMakeItinerary(User user, Itinerary itinerary) {
+        return itinerary.oneActivityPerDay();
+    }    
+}
+
+class Demanding extends Criteria{
+    String difficulty;
+    Double porcentualOFDifficulty;
+
+    @Override
+    boolean canMakeItinerary(User user, Itinerary itinerary) {
+            return ((itinerary.activiesAmount() - itinerary.amountOfActivitiesWithSpecificDifficulty(difficulty)) /itinerary.activiesAmount() * 100) >= porcentualOFDifficulty;
     }
 }
