@@ -18,8 +18,8 @@ public class Day {
         activities.remove(activity);
     }
 
-    public Integer getDurationOfActivies(){
-        return activities.stream().mapToInt(t->t.getDuration()).sum();
+    public Double getDurationOfActivies(){
+        return activities.stream().mapToDouble(t->t.getDuration()).average().getAsDouble();
     }
 
     //TO DOOO

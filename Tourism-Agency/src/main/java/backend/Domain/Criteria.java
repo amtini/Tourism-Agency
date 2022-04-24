@@ -1,11 +1,7 @@
 package backend.Domain;
 
-import java.nio.file.WatchService;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.NoSuchElementException;
 
-import javax.swing.plaf.metal.MetalFileChooserUI.FilterComboBoxRenderer;
 
 abstract class Criteria {
     abstract boolean canMakeItinerary(User user, Itinerary itinerary);
@@ -35,11 +31,10 @@ class Parochial extends Criteria{
     }
 }
 
-//FIX
 class Dreamers extends Criteria{
 
     @Override
     boolean canMakeItinerary(User user, Itinerary itinerary) {
-        return (user.wishListDestiny.stream().anyMatch(t -> t.name == itinerary.destiny.name) || itinerary.destiny.cost(user) > user.wishListDestiny.stream().map(t -> t.cost(user)).max(Comparator<Double>.comparing(Double::valueOf).get()));
+        return (user.wishListDestiny.stream().anyMatch(t -> t.name == itinerary.destiny.name) || itinerary.destiny.cost(user) > user.wishListDestiny.stream().mapToDouble(t -> t.cost(user)).max().orElseThrow(NoSuchElementException::new));
     }
 }

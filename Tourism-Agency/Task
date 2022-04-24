@@ -1,0 +1,6 @@
+Task to do:
+- Calculate Difficulty of Itinerary / Uses difficulty of the actities of each day inside the days list of Itirenary
+  The max amount of same difficulties in the day should be the difficulty of the day, but if there is more difficulties on the same amount,
+  we should choose the higher difficulty.
+
+- Non overlapping activities, create validator to check if i can add one activity on 1 day, and this is not overlapping the other activities.

@@ -1,13 +1,13 @@
 package backend.Domain;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class User {
-    User(String name_, String lastName_, String userName_, LocalDateTime upDate_, String residenceCountry_, Integer antiquity_, Integer vacationDays_, Criteria criteria_){
+    User(String name_, String lastName_, String userName_, Date upDate_, String residenceCountry_, Integer antiquity_, Integer vacationDays_, Criteria criteria_){
         Objects.requireNonNull(name_, "Name can't be null");
         Objects.requireNonNull(lastName_, "LastName can't be null");
         Objects.requireNonNull(userName_, "UserName can't be null");
@@ -15,7 +15,7 @@ public class User {
         name = name_;
         lastName = lastName_;
         userName = userName_;
-        if(upDate_.compareTo(LocalDateTime.now()) > 0) {
+        if(new Date().compareTo(upDate_) > 0) {
             upDate_ = upDate;
         }
         residenceCountry = residenceCountry_;
@@ -26,7 +26,7 @@ public class User {
     String name;
     String lastName;
     String userName;
-    LocalDateTime upDate;
+    Date upDate;
     String residenceCountry;
     Integer antiquity;
     Integer vacationDays;
@@ -44,7 +44,7 @@ public class User {
     }
 
     public Integer getAntiquity() {
-        return LocalDate.now().getYear() - upDate.getYear();
+        return (int)TimeUnit.MILLISECONDS.toDays((new Date()).getTime() - upDate.getTime()) / 365;
     }
 
     public Boolean canMakeItinerary(Itinerary itinerary){
@@ -55,6 +55,10 @@ public class User {
 
     public Boolean atLeastOneWishListDestinty(){
         return wishListDestiny.size() >= 1;
+    }
+
+    public Boolean visitedPlace(Destiny d){
+        return visitedPlaces.stream().anyMatch(t->t == d);
     }
 }
 

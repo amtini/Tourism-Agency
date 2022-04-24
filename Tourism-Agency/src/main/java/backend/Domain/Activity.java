@@ -1,12 +1,11 @@
 package backend.Domain;
 
-import java.time.LocalDateTime;
+import java.util.*;
 import java.util.Objects;
-
-import backend.Functions.DateFunctions;
+import java.util.concurrent.TimeUnit;
 
 public class Activity {
-    Activity(Double cost_, String description_, LocalDateTime startSchedule_, LocalDateTime finishSchedule_, String dificulty_){
+    Activity(Double cost_, String description_, Date startSchedule_, Date finishSchedule_, String dificulty_){
         if(cost_ >= 0){
             cost = cost_;
         }
@@ -25,14 +24,12 @@ public class Activity {
 
     Double cost;
     String description;
-    LocalDateTime startSchedule;
-    LocalDateTime finishSchedule;
+    Date startSchedule;
+    Date finishSchedule;
     Double duration;
     String dificulty;
 
-    //TO DO
-    public Integer getDuration(){
-        return DateFunctions.getMinutesOfDay(finishSchedule) - DateFunctions.getMinutesOfDay(startSchedule);
-        
+    public double getDuration(){
+        return (double)TimeUnit.MILLISECONDS.toMinutes(finishSchedule.getTime() - startSchedule.getTime());
     }
 }
