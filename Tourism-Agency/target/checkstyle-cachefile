@@ -1,4 +1,3 @@
-#Thu Apr 14 14:57:35 ART 2022
-configuration*?=1E164D70C570208B4C631947DF4CCDEA274F89D0
+#Sun Apr 24 22:35:33 ART 2022
+configuration*?=B1F8D210ECC33181B852281EDFEB08C48CE5B3EE
 module-resource*?\:checkstyle/suppressions.xml=4E8CE725F1B9B55845E14F6DBC0B16A136F0B2C9
-C\:\\Users\\Tito\\Documents\\BackEndAlgo2\\demo\\src\\test\\java\\backend\\AppTest.java=1649958985001

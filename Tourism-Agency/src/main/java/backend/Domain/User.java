@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import backend.Criteria.Criteria;
+
 public class User {
-    User(String name_, String lastName_, String userName_, Date upDate_, String residenceCountry_, Integer antiquity_, Integer vacationDays_, Criteria criteria_){
+    public User(String name_, String lastName_, String userName_, Date upDate_, String residenceCountry_, Integer vacationDays_, Criteria criteria_){
         Objects.requireNonNull(name_, "Name can't be null");
         Objects.requireNonNull(lastName_, "LastName can't be null");
         Objects.requireNonNull(userName_, "UserName can't be null");
@@ -16,10 +18,9 @@ public class User {
         lastName = lastName_;
         userName = userName_;
         if(new Date().compareTo(upDate_) > 0) {
-            upDate_ = upDate;
+            upDate = upDate_;
         }
         residenceCountry = residenceCountry_;
-        antiquity = antiquity_;
         if(vacationDays_ > 0){ vacationDays = vacationDays_;}
     }
 
@@ -27,24 +28,23 @@ public class User {
     String lastName;
     String userName;
     Date upDate;
-    String residenceCountry;
-    Integer antiquity;
+    public String residenceCountry;
+    Double antiquity;
     Integer vacationDays;
     Criteria criteria;
 
-    List<User> friends = new ArrayList<User>();
+    public List<User> friends = new ArrayList<User>();
 
-    List<Destiny> wishListDestiny = new ArrayList<Destiny>();
+    public List<Destiny> wishListDestiny = new ArrayList<Destiny>();
 
     List<Destiny> visitedPlaces = new ArrayList<Destiny>();
 
     public boolean knowsADestiny(Destiny destiny){
         return (wishListDestiny.stream().anyMatch(t -> t.name == destiny.name) || visitedPlaces.stream().anyMatch(t -> t.name == destiny.name));
-        
     }
 
     public Integer getAntiquity() {
-        return (int)TimeUnit.MILLISECONDS.toDays((new Date()).getTime() - upDate.getTime()) / 365;
+        return (int)TimeUnit.MILLISECONDS.toDays(new Date().getTime() - upDate.getTime()) / 365;
     }
 
     public Boolean canMakeItinerary(Itinerary itinerary){

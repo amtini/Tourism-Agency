@@ -11,11 +11,13 @@ import backend.Functions.DifficultyFunction;
 public class Itinerary {
     Itinerary(User owner_,Destiny destiny_){
         Objects.requireNonNull(owner_, "Owner can't be null");
+        owner = owner_;
         Objects.requireNonNull(destiny_, "Destiny can't be null");
+        destiny = destiny_;
     }
 
     User owner;
-    Destiny destiny;
+    public Destiny destiny;
     String dificulty;
 
     List<Day> days = new ArrayList<Day>();
