@@ -8,6 +8,10 @@ public interface Repository<T> {
 
     T find(T t);
 
+    T getById(Long id);
+
+    List<T> search(String value);
+
     T update(T t);
 
     Iterable<T> findAll();
