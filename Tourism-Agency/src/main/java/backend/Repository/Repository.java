@@ -1,5 +1,7 @@
 package backend.Repository;
 
+import java.util.List;
+
 public interface Repository<T> {
 
     T create(T t);

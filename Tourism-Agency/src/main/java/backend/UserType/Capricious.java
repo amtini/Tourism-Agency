@@ -1,4 +1,4 @@
-package Domain.UserType;
+package backend.UserType;
 
 import backend.Domain.User;
 import backend.Domain.Vehicule;

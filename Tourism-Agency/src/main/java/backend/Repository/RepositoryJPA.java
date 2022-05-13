@@ -1,5 +1,15 @@
 package backend.Repository;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 //TO DO abstract class for use search function on all the subRepositories
 public class RepositoryJPA<T> implements Repository<T>{
@@ -16,7 +26,7 @@ public class RepositoryJPA<T> implements Repository<T>{
     }
 
     public RepositoryJPA(){
-        Type t = getClass().getGenericSuperClass();
+        Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class) pt.getActualTypeArguments()[0];
     }
@@ -54,5 +64,23 @@ public class RepositoryJPA<T> implements Repository<T>{
         criteriaQuery.select(root);
         TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
+    }
+
+    @Override
+    public T getById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<T> search(String value) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public T update(T t) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
